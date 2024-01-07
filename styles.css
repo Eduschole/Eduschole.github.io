@@ -1,0 +1,16 @@
+.nav-bar{
+    display: flex;
+}
+.nav-items{
+    display:flex;
+    /* justify-content: space-between; */
+    position: relative;
+    left: 45%;
+    gap: 100px;
+    list-style-type: none;
+}
+#video-call-button{
+    margin-left: 45vw;
+    margin-top: 50vh;
+    font-size: 24px;
+}
