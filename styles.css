@@ -10,7 +10,13 @@
     list-style-type: none;
 }
 #video-call-button{
-    margin-left: 45vw;
-    margin-top: 50vh;
+    /* margin-left: 45vw;
+    margin-top: 50vh; */
     font-size: 24px;
+}
+
+.video-call-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
