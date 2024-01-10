@@ -41,6 +41,7 @@ let init = async () => {
 
     // event listener that runs when another member joins the same room
     channel.on('MemberJoined',handleUserJoined); 
+    channel.on('MemberLeft', handleUserLeft);
     // event listener that runs whenever we use sendMessageToPeer
     client.on('MessageFromPeer',handleMessageFromPeer);
     // we wait for the promise that indicates that we have access to the camera and mic to be fulfilled
@@ -50,6 +51,11 @@ let init = async () => {
 
 
 }
+
+let handleUserLeft = (MemberID) => {
+    document.getElementById('user-2').style.display = 'none';
+}
+
 // event handler function that runs after a peer has sent a message to the other peer
 let handleMessageFromPeer = async (message,MemberID) => {
     message = JSON.parse(message.text);
@@ -81,6 +87,8 @@ let createPeerConnection = async (MemberID) => {
         remoteStream = new MediaStream();
         // set the srcObject attribute of the video tag equal to the value for remoteStream
         document.getElementById('user-2').srcObject = remoteStream
+        // when a user joins, we want the display CSS property to be block so that we can show their video feed
+        document.getElementById('user-2').style.display = 'block';
     
         if (!localStream){
                // we wait for the promise that indicates that we have access to the camera and mic to be fulfilled
@@ -142,4 +150,12 @@ let addAnswer = async (answer) => {
         peerConnection.setRemoteDescription(answer);
     }
 }
+// we created this function to implement the display: none; video feed functionality so that the video is automatically hidden after a user leaves the channel- without this Agora would wait for a couple of seconds of inactivity before actually logging the user out
+let leaveChannel = async () => {
+    await channel.leave()
+    await client.logout()
+}
+
+// before the window is closed, run leave channel
+window.addEventListener('beforeunload',leaveChannel);
 init();

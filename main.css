@@ -9,3 +9,7 @@
     width: 100%;
     height: 300px;
 }
+#user-2{
+    /* we want to hide the user until they join- use case, user leaves the room, we don't want their video to stay frozen */
+    display: none;
+}
