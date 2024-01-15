@@ -14,6 +14,15 @@ let uid = String(Math.floor(Math.random() * 10000));
 let client;
 // the channel that two users actually join
 let channel;
+
+let queryString = window.location.search
+let urlParams = new URLSearchParams(queryString)
+let roomId = urlParams.get('room')
+
+if (!roomId){
+    window.location = 'lobby.html'
+}
+
 // variable for local video feed - the first peer's video feed
 let localStream;
 // variable for other peer's video feed - the remote feed
@@ -36,7 +45,7 @@ let init = async () => {
     await client.login({uid,token});
     
     // TODO: the parameter for createChannel will eventually have to be a unique room id
-    channel = client.createChannel('main');
+    channel = client.createChannel(roomId);
     await channel.join();
 
     // event listener that runs when another member joins the same room
