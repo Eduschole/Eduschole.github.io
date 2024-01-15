@@ -37,7 +37,16 @@ const servers = {
         }
     ]
 }
+let constraints = {
+    video: {
+        width: {
+            min:640, ideal:1920, max:1920
+        },
+        height:{min:480, ideal:1080, max:1080},
+    },
+    audio:true
 
+}
 // init function that runs at the beginning, asks the browser for access to camera and mic for the local stream
 let init = async () => {
     // if these Agora methods do not make sense, you could always reference the Agora documentation (it's important to point out that we didn't download the latest version of the signaling SDK since we were running into problems getting AgoraRTM to be defined as a global variable)
@@ -54,7 +63,7 @@ let init = async () => {
     // event listener that runs whenever we use sendMessageToPeer
     client.on('MessageFromPeer',handleMessageFromPeer);
     // we wait for the promise that indicates that we have access to the camera and mic to be fulfilled
-    localStream = await navigator.mediaDevices.getUserMedia({video:true, audio:true})
+    localStream = await navigator.mediaDevices.getUserMedia(constraints)
     // we set the srcObject attribute of the video tag for user 1 equal to the fulfilled promise value, a.k.a localStream var
     document.getElementById('user-1').srcObject = localStream
 
