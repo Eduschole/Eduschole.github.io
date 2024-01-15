@@ -63,6 +63,7 @@ let init = async () => {
 
 let handleUserLeft = (MemberID) => {
     document.getElementById('user-2').style.display = 'none';
+    document.getElementById('user-1').classList.remove('smallFrame')
 }
 
 // event handler function that runs after a peer has sent a message to the other peer
@@ -98,6 +99,8 @@ let createPeerConnection = async (MemberID) => {
         document.getElementById('user-2').srcObject = remoteStream
         // when a user joins, we want the display CSS property to be block so that we can show their video feed
         document.getElementById('user-2').style.display = 'block';
+
+        document.getElementById('user-1').classList.add('smallFrame')
     
         if (!localStream){
                // we wait for the promise that indicates that we have access to the camera and mic to be fulfilled
